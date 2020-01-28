@@ -2,9 +2,9 @@ import numpy as np
 
 
 def standardize_data(data):
-    mean_data = np.mean(data, axis = 0)
+    mean_data = np.mean(data, axis = 0) # calculating column mean
     data = data - mean_data
-    std_dev_data_x = np.std(data, axis=0)
+    std_dev_data_x = np.std(data, axis=0) # standard deviation of columns of data
     data[:, std_dev_data_x > 0] = data[:, std_dev_data_x > 0] / std_dev_data_x[std_dev_data_x > 0]
 
     return data
