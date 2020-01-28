@@ -22,6 +22,9 @@
     <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="DataHandler.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="FindHiggsBoson.py" />
   </ItemGroup>
   <ItemGroup>
