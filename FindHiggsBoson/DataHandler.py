@@ -20,19 +20,25 @@ def nan2median(data):
 
 def load_csv_data(data_path):
 
-    data = np.genfromtxt(data_path, delimiter=",", skip_header=1) 
-    features = data[:, 2:-1]
+    features = np.genfromtxt(data_path, delimiter=",", skip_header=1, usecols = range(1, 32)) 
     labels = np.genfromtxt(data_path, delimiter=",", skip_header=1, dtype = str, usecols = (-1) )
 
     labels_bin = np.ones(len(labels))
     labels_bin[np.where(labels=='b')] = 0
 
-    return labels_bin, data
+    return labels_bin, features
 
 def split_data(data) :
-    item_size = np.size(data, 1)
-    train_data = data[:, : (item_size * 0.8)]
-    validation_data = data[:, (item_size * 0.8 + 1) : (item_size * 0.9) ]
-    test_data = data[:, (item_size * 0.9) : ]
+    train_data      = np.split(data,[200000, 225000])[0]
+    validation_data = np.split(data,[200000, 225000])[1]
+    test_data       = np.split(data,[200000, 225000])[2]
 
     return train_data, validation_data, test_data
+
+def predict_labels(weights, data):
+    """Generates class predictions given weights, and a test data matrix"""
+    y_pred = np.dot(data, weights)
+    y_pred[np.where(y_pred <= 0.5)] = -1
+    y_pred[np.where(y_pred > 0.5)] = 1
+    
+    return y_pred
