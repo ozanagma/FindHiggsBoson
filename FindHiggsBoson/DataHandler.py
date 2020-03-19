@@ -2,12 +2,7 @@ import numpy as np
 
 
 def standardize_data(data):
-    mean_data = np.mean(data, axis = 0) # calculating column mean
-    data = data - mean_data
-    std_dev_data_x = np.std(data, axis=0) # standard deviation of columns of data
-    data[:, std_dev_data_x > 0] = data[:, std_dev_data_x > 0] / std_dev_data_x[std_dev_data_x > 0]
-
-    return data
+    return (data - np.mean(data, axis = 0)) / np.std(data, axis = 0)
 
 
 def nan2median(data):
@@ -21,20 +16,23 @@ def nan2median(data):
 
     return data
 
-def log_transform(data):
-   
-    data = np.log(1 + data) # TODO: is all columns need log transformation to:group date:28.01.20
-
-    return data
 
 
 def load_csv_data(data_path):
 
-    labels = np.genfromtxt(data_path, delimiter=",", skip_header=1, dtype=str, usecols=1)
-    features = np.genfromtxt(data_path, delimiter=",", skip_header=1)
-    data = features[:, 2:]
+    data = np.genfromtxt(data_path, delimiter=",", skip_header=1) 
+    features = data[:, 2:-1]
+    labels = np.genfromtxt(data_path, delimiter=",", skip_header=1, dtype = str, usecols = (-1) )
 
     labels_bin = np.ones(len(labels))
     labels_bin[np.where(labels=='b')] = 0
 
-    return labels, data
+    return labels_bin, data
+
+def split_data(data) :
+    item_size = np.size(data, 1)
+    train_data = data[:, : (item_size * 0.8)]
+    validation_data = data[:, (item_size * 0.8 + 1) : (item_size * 0.9) ]
+    test_data = data[:, (item_size * 0.9) : ]
+
+    return train_data, validation_data, test_data

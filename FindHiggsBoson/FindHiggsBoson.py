@@ -4,19 +4,21 @@ import numpy as np
 import matplotlib.pyplot as plot
 
 from DataHandler import *
+from implementors.GradientDescent import *
 
-train_labels, train_data, traind_event_id_ = load_csv_data("data/training.csv")  #reading train data
-train_data = nan2median(train_data) # changing NaN values with column median
-train_data = log_transform(train_data); # Implementing log transformation to data be less skewed
-train_data = standardize_data(train_data) # Standardization data because variables have diffrent units
+#datayı parşalarken shuflle edebilirsin oagma
 
-# For debug only
-plot.hist(train_data[:, 2], bins = 'auto')
-plot.show()
+labels, features = load_csv_data("data/training.csv")  #reading train data
+features = nan2median(features) # changing NaN values with column median
+features = standardize_data(features) # Standardization data because variables have diffrent units
+train_features, validation_features, test_features = split_data(features)
+train_labels, validation_labels, test_labels  = split_data(labels)
+
+#least_squares_GD(train_labels, train_features, np.zeros(len) , )
 
 
 
-#test_data = pd.read_csv(r'data/test.csv') # reading test data
+print(train_labels)
 
 
 

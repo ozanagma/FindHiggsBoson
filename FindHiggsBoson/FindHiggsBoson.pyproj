@@ -26,9 +26,13 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="FindHiggsBoson.py" />
+    <Compile Include="implementors\GradientDescent.py">
+      <SubType>Code</SubType>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="data\" />
+    <Folder Include="implementors\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="data\test.csv" />
