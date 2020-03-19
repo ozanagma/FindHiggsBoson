@@ -6,8 +6,6 @@ import matplotlib.pyplot as plot
 from DataHandler import *
 from implementors.GradientDescent import *
 
-#datayı parşalarken shuflle edebilirsin oagma
-
 labels, features = load_csv_data("data/training.csv")  #reading train data
 features = nan2median(features) # changing NaN values with column median
 features = standardize_data(features) # Standardization data because variables have diffrent units
