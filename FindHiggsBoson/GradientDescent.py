@@ -12,7 +12,6 @@ def compute_gradient(y, tx, w):
     return grad, err
 
 def gradient_descent(y, tx, initial_w, max_iters, gamma):
-    """Gradient descent algorithm."""
     # Define parameters to store w and loss
     ws = [initial_w]
     losses = []
