@@ -11,7 +11,7 @@ from Plot import *
 labels, features = load_csv_data_pd("data/data.csv")  #reading train data
 features = features.mask(np.isclose(features.values, -999.00))
 features.fillna(features.mean(), inplace=True)
-PlotBoxWhisker(features)
+PlotHist(features)
 
 
 scaler = StandardScaler()
