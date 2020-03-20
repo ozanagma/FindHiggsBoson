@@ -1,43 +1,40 @@
 
 import pandas as pd
 import numpy as np
-from sklearn.preprocessing import StandardScaler
 
 
 from DataHandler import *
 from GradientDescent import *
 from Plot import *
 
-labels, features = load_csv_data_pd("data/data.csv")  #reading train data
-features = features.mask(np.isclose(features.values, -999.00))
-features.fillna(features.mean(), inplace=True)
-PlotDensity(features)
+labels, features = LoadCSVData("data/data.csv")  #reading train data
+print("Labels shape: ", labels.shape)
+print("Features shape: ", features.shape)
+ReplaceNanMean(features)
+StandardizeData(features)
 
 
-scaler = StandardScaler()
-scaler.fit_transform(X.f3.values.reshape(-1, 1))
-
-
-labels, features = load_csv_data("data/training.csv")  #reading train data
-features = nan2median(features) # changing NaN values with column median
-features = standardize_data(features) # Standardization data because variables have diffrent units
-train_features, validation_features, test_features = split_data(features)
-train_labels, validation_labels, test_labels  = split_data(labels)
+train_features, validation_features, test_features  = SplitData(features)
+train_labels,   validation_labels,   test_labels    = SplitData(labels)
 
 # Define the parameters of the algorithm.
 max_iters = 500
 gamma = 0.1
 
-# Initialization
-initial_w = np.zeros(train_features.shape[1])
+initial_w = pd.DataFrame(0, index=np.arange(train_features.shape[1]), columns=['weights'])
 
-weights, loss = least_squares_GD(train_labels, train_features, initial_w, max_iters, gamma)
+print("Train Labels shape: ", train_labels.shape)
+print("Train Features shape: ", train_features.shape)
+print("Weights shape: ", initial_w.shape)
 
-ypred = predict_labels(weights,train_features)
-ypred = np.where(ypred == -1, 0, ypred)
-ypred = np.squeeze(ypred)
+weights, loss = RunGradientDescent(train_labels, train_features, initial_w, max_iters, gamma)
 
-print((ypred == train_labels).mean())
+print("Test Labels shape: ", test_labels.shape)
+print("Test Features shape: ", test_features.shape)
+
+predicted_labels = PredictLabels(weights,test_features)
+
+print((predicted_labels == test_labels).mean())
 
 
 

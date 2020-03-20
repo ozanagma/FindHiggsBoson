@@ -7,7 +7,7 @@ def calculate_mse(e):
 
 def compute_gradient(y, tx, w):
     """Compute the gradient."""
-    err = y - tx.dot(w)
+    err = y - tx.values.dot(w)
     grad = -tx.T.dot(err) / len(err)
     return grad, err
 
@@ -17,11 +17,11 @@ def gradient_descent(y, tx, initial_w, max_iters, gamma):
     losses = []
     w = initial_w
     for n_iter in range(max_iters):
-        # compute loss, gradient
         grad, err = compute_gradient(y, tx, w)
         loss = calculate_mse(err)
         # gradient w by descent update
-        w = w - gamma * grad
+        k = gamma*grad
+        w = w - k.values
         # store w and loss
         ws.append(w)
         losses.append(loss)
@@ -29,7 +29,7 @@ def gradient_descent(y, tx, initial_w, max_iters, gamma):
 
     return losses, ws
 
-def least_squares_GD(y, tx, initial_w, max_iters, gamma):
+def RunGradientDescent(y, tx, initial_w, max_iters, gamma):
     # Start gradient descent.
     start_time = datetime.datetime.now()
     gradient_losses, gradient_ws = gradient_descent(y, tx, initial_w, max_iters, gamma)
