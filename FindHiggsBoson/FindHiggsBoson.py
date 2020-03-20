@@ -4,9 +4,9 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 from DataHandler import *
-from implementors.GradientDescent import *
+from GradientDescent import *
 
-labels, features = load_csv_data_pd("data/training.csv")  #reading train data
+labels, features = load_csv_data_pd("data/data.csv")  #reading train data
 features = features.mask(np.isclose(features.values, -999.00))
 print(features.mean())
 features.fillna(features.mean(), inplace=True)
