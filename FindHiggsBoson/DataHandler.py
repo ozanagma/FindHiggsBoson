@@ -1,4 +1,5 @@
 import numpy as np
+import pandas as pd
 
 
 def standardize_data(data):
@@ -20,8 +21,8 @@ def nan2median(data):
 
 def load_csv_data(data_path):
 
-    features = np.genfromtxt(data_path, delimiter=",", skip_header=1, usecols = range(1, 32)) 
-    labels = np.genfromtxt(data_path, delimiter=",", skip_header=1, dtype = str, usecols = (-1) )
+    features    = np.genfromtxt(data_path, delimiter=",", skip_header=1, usecols = range(1, 31)) 
+    labels      = np.genfromtxt(data_path, delimiter=",", skip_header=1, dtype = str, usecols = (-1) )
 
     labels_bin = np.ones(len(labels))
     labels_bin[np.where(labels=='b')] = 0
@@ -42,3 +43,15 @@ def predict_labels(weights, data):
     y_pred[np.where(y_pred > 0.5)] = 1
     
     return y_pred
+
+def load_csv_data_pd(data_path):
+    data        = pd.read_csv(data_path, delimiter=",", dtype = {"Label" : "str"})
+    features    = data.iloc[:, 1:31]
+    labels      = data.iloc[:, 32:33]
+
+    labels.Label[labels.Label == 's'] = 1
+    labels.Label[labels.Label == 'b'] = 0
+        
+
+
+    return labels, features

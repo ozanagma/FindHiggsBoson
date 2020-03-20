@@ -342,3 +342,4 @@ healthchecksdb
 #Test Data
 data/*.csv
 *.csv
+/documentation_v1.8.pdf

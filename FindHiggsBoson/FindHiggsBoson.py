@@ -1,13 +1,25 @@
 
 import pandas as pd
 import numpy as np
-import matplotlib.pyplot as plot
+import matplotlib.pyplot as plt
 
 from DataHandler import *
 from implementors.GradientDescent import *
 
+labels, features = load_csv_data_pd("data/training.csv")  #reading train data
+features = features.mask(np.isclose(features.values, -999.00))
+print(features.mean())
+features.fillna(features.mean(), inplace=True)
+plt.matshow(features.corr())
+plt.show()
+
 labels, features = load_csv_data("data/training.csv")  #reading train data
 features = nan2median(features) # changing NaN values with column median
+#plt.plot(features[2])
+#plt.show()
+#correlation matrix
+plt.matshow(features.corr())
+plt.show()
 features = standardize_data(features) # Standardization data because variables have diffrent units
 train_features, validation_features, test_features = split_data(features)
 train_labels, validation_labels, test_labels  = split_data(labels)

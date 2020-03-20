@@ -26,17 +26,18 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="FindHiggsBoson.py" />
-    <Compile Include="implementors\GradientDescent.py">
+    <Compile Include="GradientDescent.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Plot.py">
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="data\" />
-    <Folder Include="implementors\" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="data\test.csv" />
-    <Content Include="data\training.csv" />
+    <Content Include="data\data.csv" />
   </ItemGroup>
   <ItemGroup>
     <InterpreterReference Include="Global|PythonCore|3.7" />
