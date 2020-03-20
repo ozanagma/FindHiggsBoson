@@ -28,3 +28,11 @@ def PlotScatter(data) :
 def PlotHist(data) : 
     data.hist()
     plt.show()
+
+def PlotDensity(data) : 
+    data.plot(kind='density', subplots=True, layout=(5,6), sharex=False)
+    plt.show()
+
+def PlotBoxWhisker(data) :
+    data.plot(kind='box', subplots=True, layout=(5,6), sharex=False, sharey=False)
+    plt.show()
