@@ -33,7 +33,10 @@ def PlotHist(data) :
     plt.show()
 
 def PlotDensity(data) : 
-    data.plot(kind='density', subplots=True, layout=(5,6), sharex=False, sharey=False, figsize = (10, 10))
+    data.iloc[:,0:9].plot(kind='density', subplots=True, layout=(3,3))
+    data.iloc[:,9:18].plot(kind='density', subplots=True, layout=(3,3))
+    data.iloc[:,18:27].plot(kind='density', subplots=True, layout=(3,3))
+    data.iloc[:,27:30].plot(kind='density', subplots=True, layout=(3,3))
     plt.show()
 
 def PlotBoxWhisker(data) :
