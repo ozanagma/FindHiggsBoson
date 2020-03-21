@@ -1,16 +1,15 @@
 import numpy as np
 import pandas as pd
 
-
 def StandardizeData(data):
     return (data- data.mean())/ data.std()
 
 def ReplaceNanMean(data):
     """Replace -999 values with NaN then replace NaN with column mean"""
-    data = data.mask(np.isclose(features.values, -999.00))
-    data.fillna(features.mean(), inplace=True)
+    data = data.mask(np.isclose(data.values, -999.00))
+    data.fillna(data.mean(), inplace=True)
     is_nan_exists  = data.isna().values.any()
-    print("Is any NaN value exists? ", is_nan_exists)
+    #print("Is any NaN value exists? ", is_nan_exists)
 
     return data
 
@@ -39,6 +38,5 @@ def LoadCSVData(data_path):
     pd.options.mode.chained_assignment = None  # default='warn'
     labels.Label.loc[labels.Label == 's'] = 1
     labels.Label.loc[labels.Label == 'b'] = 0
-   
-
+  
     return labels, features

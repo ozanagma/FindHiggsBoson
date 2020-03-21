@@ -1,7 +1,8 @@
 import seaborn as sns
 import matplotlib.pyplot as plt
 import pandas as pd
-
+import progressbar
+from time import sleep
 
 def PlotHeatMap(data) :
     corr = data.corr()
@@ -45,3 +46,19 @@ def PlotBoxWhisker(data) :
     data.iloc[:,18:27].plot(kind='box', subplots=True, layout=(3,3))
     data.iloc[:,27:30].plot(kind='box', subplots=True, layout=(3,3))
     plt.show()
+
+
+def InitProgressBar():
+    bar = progressbar.ProgressBar(maxval=20, \
+    widgets=[progressbar.Bar('=', '[', ']'), ' ', progressbar.Percentage()])
+    bar.start()
+
+    return bar
+    
+    
+
+def UpdateProgressBar(bar, value):
+    bar.update(value)
+    sleep(0.1)
+    if value == 100:
+        bar.finish()
