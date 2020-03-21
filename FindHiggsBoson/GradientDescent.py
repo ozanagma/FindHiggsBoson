@@ -8,7 +8,7 @@ def calculate_mse(e):
 
 def compute_gradient(y, tx, w):
     """Compute the gradient."""
-    err = y - tx.values.dot(w)
+    err = y - tx.dot(w)
     grad = -tx.T.dot(err) / len(err)
     return grad, err
 
@@ -23,7 +23,7 @@ def gradient_descent(y, tx, initial_w, max_iters, gamma):
         loss = calculate_mse(err)
         # gradient w by descent update
         k = gamma*grad
-        w = w - k.values
+        w = w - k
         # store w and loss
         ws.append(w)
         losses.append(loss)

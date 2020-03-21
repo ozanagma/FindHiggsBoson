@@ -8,9 +8,11 @@ from DataHandler import *
 from GradientDescent import *
 from Plot import *
 
-infile = sys.argv[1]
+#infile = sys.argv[1]
+#labels, features = LoadCSVData(infile)  
 
-labels, features = LoadCSVData(infile)  
+labels, features = LoadCSVData("data/data.csv")  
+
 #print("Labels shape: ", labels.shape)
 #print("Features shape: ", features.shape)
 
@@ -32,7 +34,7 @@ initial_w = pd.DataFrame(0, index=np.arange(train_features.shape[1]), columns=['
 #print("Train Features shape: ", train_features.shape)
 #print("Weights shape: ", initial_w.shape)
 
-weights, loss = RunGradientDescent(train_labels, train_features, initial_w, max_iters, gamma)
+weights, loss = RunGradientDescent(train_labels.to_numpy(), train_features.to_numpy(), initial_w.to_numpy(), max_iters, gamma)
 
 #print("Test Labels shape: ", test_labels.shape)
 #print("Test Features shape: ", test_features.shape)
