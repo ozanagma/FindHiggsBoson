@@ -1,3 +1,6 @@
+import sys
+import re
+import time
 import seaborn as sns
 import matplotlib.pyplot as plt
 import pandas as pd
@@ -18,12 +21,15 @@ def PlotHeatMap(data) :
     ax.get_xticklabels(),
     rotation=45,
     horizontalalignment='right')
-
+    timestamp = time.strftime("%Y%m%d-%H%M%S")
+    plt.savefig( 'Figures/HeatMap_' + timestamp + '.eps', format = 'eps')
     plt.show()
 
 
 def PlotScatter(data) :
     pd.plotting.scatter_matrix(data)
+    timestamp = time.strftime("%Y%m%d-%H%M%S")
+    plt.savefig( 'Figures/Scatter_' + timestamp + '.eps', format = 'eps')
     plt.show()
 
 def PlotHist(data) : 
@@ -31,6 +37,8 @@ def PlotHist(data) :
     data.iloc[:,9:18].hist(layout=(3,3))
     data.iloc[:,18:27].hist(layout=(3,3))
     data.iloc[:,27:30].hist(layout=(3,3))
+    timestamp = time.strftime("%Y%m%d-%H%M%S")
+    plt.savefig( 'Figures/Hist_' + timestamp + '.eps', format = 'eps')
     plt.show()
 
 def PlotDensity(data) : 
@@ -38,6 +46,8 @@ def PlotDensity(data) :
     data.iloc[:,9:18].plot(kind='density', subplots=True, layout=(3,3))
     data.iloc[:,18:27].plot(kind='density', subplots=True, layout=(3,3))
     data.iloc[:,27:30].plot(kind='density', subplots=True, layout=(3,3))
+    timestamp = time.strftime("%Y%m%d-%H%M%S")
+    plt.savefig( 'Figures/Density_' + timestamp + '.eps', format = 'eps')
     plt.show()
 
 def PlotBoxWhisker(data) :
@@ -45,6 +55,8 @@ def PlotBoxWhisker(data) :
     data.iloc[:,9:18].plot(kind='box', subplots=True, layout=(3,3))
     data.iloc[:,18:27].plot(kind='box', subplots=True, layout=(3,3))
     data.iloc[:,27:30].plot(kind='box', subplots=True, layout=(3,3))
+    timestamp = time.strftime("%Y%m%d-%H%M%S")
+    plt.savefig( 'Figures/BoxWhisker_' + timestamp + '.eps', format = 'eps')
     plt.show()
 
 
@@ -52,7 +64,6 @@ def InitProgressBar():
     bar = progressbar.ProgressBar(maxval=100, \
     widgets=[progressbar.Bar('=', '[', ']'), ' ', progressbar.Percentage()])
     bar.start()
-
     return bar
     
     
