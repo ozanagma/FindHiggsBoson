@@ -1,4 +1,6 @@
-
+import sys
+import re
+import time
 import pandas as pd
 import numpy as np
 
@@ -6,7 +8,9 @@ from DataHandler import *
 from GradientDescent import *
 from Plot import *
 
-labels, features = LoadCSVData("data/data.csv")  
+infile = sys.argv[1]
+
+labels, features = LoadCSVData(infile)  
 #print("Labels shape: ", labels.shape)
 #print("Features shape: ", features.shape)
 
