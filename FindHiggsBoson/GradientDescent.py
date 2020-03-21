@@ -40,7 +40,7 @@ def RunGradientDescent(y, tx, initial_w, max_iters, gamma):
     end_time = datetime.datetime.now()
     print("Gradient Descent Algorith Finished.")
 
-    Print("Results:")
+    print("Results:")
     exection_time = (end_time - start_time).total_seconds()
     print("Gradient Descent: execution time= {t:.3f} seconds".format(t=exection_time))
     print("Gradient Descent: RMSE Loss = {t}".format(t=np.sqrt(2 * gradient_losses[-1])))

@@ -49,7 +49,7 @@ def PlotBoxWhisker(data) :
 
 
 def InitProgressBar():
-    bar = progressbar.ProgressBar(maxval=20, \
+    bar = progressbar.ProgressBar(maxval=100, \
     widgets=[progressbar.Bar('=', '[', ']'), ' ', progressbar.Percentage()])
     bar.start()
 
@@ -58,7 +58,7 @@ def InitProgressBar():
     
 
 def UpdateProgressBar(bar, value):
+    value = 100 if value > 100 else value
     bar.update(value)
-    sleep(0.1)
     if value == 100:
         bar.finish()

@@ -13,6 +13,13 @@ def ReplaceNanMean(data):
 
     return data
 
+def LogTransform(data):
+    log_col = [0, 2, 5, 9, 13, 16, 19, 21, 23, 26, 29]
+    colname = data.columns[log_col]
+
+    return data.apply(lambda x: np.log(1 + x) if x.name in colname else x)
+
+
 def SplitData(data) :
     """Split data into trai, validation and test"""
     train_data      = data.iloc[      :200000, :]

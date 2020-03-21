@@ -10,8 +10,10 @@ labels, features = LoadCSVData("data/data.csv")
 #print("Labels shape: ", labels.shape)
 #print("Features shape: ", features.shape)
 
-ReplaceNanMean(features)
-StandardizeData(features)
+
+features = ReplaceNanMean(features)
+features = LogTransform(features)
+features = StandardizeData(features)
 
 train_features, validation_features, test_features  = SplitData(features)
 train_labels,   validation_labels,   test_labels    = SplitData(labels)
