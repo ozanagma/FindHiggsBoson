@@ -22,8 +22,7 @@ def gradient_descent(y, tx, initial_w, max_iters, gamma):
         grad, err = compute_gradient(y, tx, w)
         loss = calculate_mse(err)
         # gradient w by descent update
-        k = gamma*grad
-        w = w - k
+        w = w - gamma*grad
         # store w and loss
         ws.append(w)
         losses.append(loss)
@@ -45,4 +44,4 @@ def RunGradientDescent(y, tx, initial_w, max_iters, gamma):
     print("Gradient Descent: execution time= {t:.3f} seconds".format(t=exection_time))
     print("Gradient Descent: RMSE Loss = {t}".format(t=np.sqrt(2 * gradient_losses[-1])))
     
-    return (gradient_ws[-1], gradient_losses[-1])
+    return gradient_ws, gradient_losses

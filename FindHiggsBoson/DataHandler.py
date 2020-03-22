@@ -2,22 +2,34 @@ import numpy as np
 import pandas as pd
 
 def StandardizeData(data):
-    return (data- data.mean())/ data.std()
+    data = (data- data.mean())/ data.std()
+    print("Standardization is completed.")
+
+    return data
+
+def NormalizeData(data):
+    data = (data- data.min())/ (data.max() - data.min())
+    print("Normalization is completed.")
+
+    return data
 
 def ReplaceNanMean(data):
     """Replace -999 values with NaN then replace NaN with column mean"""
     data = data.mask(np.isclose(data.values, -999.00))
     data.fillna(data.mean(), inplace=True)
     is_nan_exists  = data.isna().values.any()
-    #print("Is any NaN value exists? ", is_nan_exists)
+    if(is_nan_exists == False):
+        print("No NaN value exists. All NaNs are replaced.")
 
     return data
 
 def LogTransform(data):
     log_col = [0, 2, 5, 9, 13, 16, 19, 21, 23, 26, 29]
     colname = data.columns[log_col]
+    data = data.apply(lambda x: np.log(1 + x) if x.name in colname else x)
+    print("Log Transform completed.")
 
-    return data.apply(lambda x: np.log(1 + x) if x.name in colname else x)
+    return data
 
 
 def SplitData(data) :
@@ -45,5 +57,6 @@ def LoadCSVData(data_path):
     pd.options.mode.chained_assignment = None  # default='warn'
     labels.Label.loc[labels.Label == 's'] = 1
     labels.Label.loc[labels.Label == 'b'] = 0
+    print("Data is loaded.")
   
     return labels, features
