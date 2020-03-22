@@ -3,13 +3,18 @@ import re
 import time
 import pandas as pd
 import numpy as np
+from random import seed
 
 from DataHandler import *
 from GradientDescent import *
+from NeuralNetwork import *
 from Plot import *
 
 #infile = sys.argv[1]
 #labels, features = LoadCSVData(infile)  
+
+
+
 
 labels, features = LoadCSVData("data/data.csv")  
 

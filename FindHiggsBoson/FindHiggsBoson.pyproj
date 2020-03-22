@@ -29,6 +29,9 @@
     <Compile Include="GradientDescent.py">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="NeuralNetwork.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Plot.py">
       <SubType>Code</SubType>
     </Compile>
