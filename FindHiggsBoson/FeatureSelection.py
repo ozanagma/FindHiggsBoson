@@ -5,7 +5,6 @@ from sklearn.ensemble import ExtraTreesClassifier
 from sklearn.feature_selection import SelectKBest, f_classif
 
 def FeatureImportance(infile):
-    print("sodhfsfkjvflknvlkfhnlkfndnlkffsnlk")
     bestcount = 10
     data = pd.read_csv(infile)
     X = data.iloc[:,0:20]

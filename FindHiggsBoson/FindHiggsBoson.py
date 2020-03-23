@@ -13,15 +13,15 @@ from FeatureSelection import *
 infile = sys.argv[1]
 
 #Feature Selection 1, FeatureImportance
-#outfile = FeatureImportance(infile)
-#labels, features = LoadCSVData(outfile) 
+outfile = FeatureImportance(infile)
+labels, features = LoadCSVData(outfile) 
 
 #Feature Selection 2, UnivariateSelection
 #outfile = UnivariateSelection(infile)
 #labels, features = LoadCSVData(outfile) 
 
-
-labels, features = LoadCSVData(infile)  
+#bu commente alınacak
+#labels, features = LoadCSVData(infile)  
 
 #print("Labels shape: ", labels.shape)
 #print("Features shape: ", features.shape)
