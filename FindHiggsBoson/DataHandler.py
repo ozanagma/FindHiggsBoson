@@ -40,13 +40,7 @@ def SplitData(data) :
 
     return train_data, validation_data, test_data
 
-def PredictLabels(weights, data):
-    """Generates class predictions given weights, and a test data matrix"""
-    y_pred = data.values.dot(weights)
-    y_pred[np.where(y_pred <= 0.5)] = 0
-    y_pred[np.where(y_pred > 0.5)] = 1
-    
-    return y_pred
+
 
 def LoadCSVData(data_path):
     """ Loads CSV data and splits it as a features and labels. Convert labels to binary data"""
