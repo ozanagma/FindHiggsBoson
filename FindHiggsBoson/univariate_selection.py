@@ -11,7 +11,6 @@ y = data.iloc[:,-1]    #target column i.e price range
 
 ###########################
 #https://towardsdatascience.com/feature-selection-techniques-in-machine-learning-with-python-f24e7da3f36e
-#apply SelectKBest class to extract top 10 best features
 bestfeatures = SelectKBest(score_func=f_classif, k=10)
 fit = bestfeatures.fit(X,y)
 dfscores = pd.DataFrame(fit.scores_)
