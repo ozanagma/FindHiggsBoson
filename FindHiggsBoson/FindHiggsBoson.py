@@ -3,7 +3,6 @@ import re
 import time
 import pandas as pd
 import numpy as np
-from random import seed
 
 from DataHandler import *
 from GradientDescent import *
@@ -31,9 +30,19 @@ train_features, validation_features, test_features  = SplitData(features)
 train_labels,   validation_labels,   test_labels    = SplitData(labels)
 
 
-predictions = Train(np.append(test_features.to_numpy(), test_labels.to_numpy(), 1) , 0.5, 20, 2)
 
-print((predictions == test_labels).mean())
+dataset = np.append(test_features.to_numpy(), test_labels.to_numpy(), 1)
+
+
+
+
+#network = InitializeNetwork(30, 80)
+#Train(network, dataset , 0.5, 20)
+#predictions = Predict(network, dataset)
+#print((predictions == test_labels.to_numpy()).mean())
+
+
+
 
 # Get the parameters of the algorithm.
 
