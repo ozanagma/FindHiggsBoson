@@ -25,6 +25,7 @@
     <Compile Include="DataHandler.py">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="feature_importance.py" />
     <Compile Include="FindHiggsBoson.py" />
     <Compile Include="GradientDescent.py">
       <SubType>Code</SubType>
@@ -35,6 +36,7 @@
     <Compile Include="Plot.py">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="univariate_selection.py" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="data\" />
