@@ -24,9 +24,11 @@ def ReplaceNanMean(data):
     return data
 
 def LogTransform(data):
-    log_col = [0, 2, 5, 9, 13, 16, 19, 21, 23, 26, 29]
-    colname = data.columns[log_col]
-    data = data.apply(lambda x: np.log(1 + x) if x.name in colname else x)
+    selected = ['DER_mass_MMC', 'DER_mass_vis', 'DER_mass_jet_jet', 'DER_sum_pt',
+       'PRI_tau_pt', 'PRI_lep_pt', 'PRI_met', 'PRI_met_sumet',
+       'PRI_jet_leading_pt', 'PRI_jet_subleading_pt', 'PRI_jet_all_pt']
+    for i in selected:
+        data = data.apply(lambda x: np.log(1 + x) if x.name in i else x)
     print("Log Transform completed.")
 
     return data
@@ -41,12 +43,11 @@ def SplitData(data) :
     return train_data, validation_data, test_data
 
 
-
-def LoadCSVData(data_path):
+def LoadCSVData(data_path, fstart, fend, lstart, lend):
     """ Loads CSV data and splits it as a features and labels. Convert labels to binary data"""
     data        = pd.read_csv(data_path, delimiter=",", dtype = {"Label" : "str"}, index_col=0)
-    features    = data.iloc[:, 0:30]
-    labels      = data.iloc[:, 31:32]
+    features    = data.iloc[:, fstart:fend]
+    labels      = data.iloc[:, lstart:lend]
 
     pd.options.mode.chained_assignment = None  # default='warn'
     labels.Label.loc[labels.Label == 's'] = 1

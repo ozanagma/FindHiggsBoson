@@ -11,17 +11,20 @@ from Plot import *
 from FeatureSelection import *
 
 infile = sys.argv[1]
+feature_count = 30 ##ORIGINALLY 30
 
-#Feature Selection 1, FeatureImportance
-outfile = FeatureImportance(infile)
-labels, features = LoadCSVData(outfile) 
+if feature_count == 30:
+    labels, features = LoadCSVData(infile, 0, feature_count, 
+                                    feature_count + 1, feature_count + 2)
+else:
+    #Feature Selection 1, FeatureImportance
+    #outfile = FeatureImportance(infile)
 
-#Feature Selection 2, UnivariateSelection
-#outfile = UnivariateSelection(infile)
-#labels, features = LoadCSVData(outfile) 
+    #Feature Selection 2, UnivariateSelection
+    outfile = UnivariateSelection(infile)
 
-#bu commente alınacak
-#labels, features = LoadCSVData(infile)  
+    labels, features = LoadCSVData(outfile, 0, feature_count, 
+                                feature_count + 1, feature_count + 2)  
 
 #print("Labels shape: ", labels.shape)
 #print("Features shape: ", features.shape)
@@ -36,18 +39,13 @@ train_features, validation_features, test_features  = SplitData(features)
 train_labels,   validation_labels,   test_labels    = SplitData(labels)
 
 
-
 dataset = np.append(test_features.to_numpy(), test_labels.to_numpy(), 1)
-
-
 
 
 #network = InitializeNetwork(30, 80)
 #Train(network, dataset , 0.5, 20)
 #predictions = Predict(network, dataset)
 #print((predictions == test_labels.to_numpy()).mean())
-
-
 
 
 # Get the parameters of the algorithm.
@@ -57,7 +55,8 @@ gamma = float(input("Enter learning rate: ")) #0.1
 
 
 #initial_w = pd.DataFrame(0, index=np.arange(train_features.shape[1]), columns=['weights'])
-initial_w = pd.DataFrame(np.random.randint(0, 100, size=(30, 1)), columns=['weights']) / 100
+initial_w = pd.DataFrame(np.random.randint(0, 100, size=(feature_count, 1)), columns=['weights']) / 100
+#initial_w = pd.DataFrame(np.random.randint(0, 100, size=(30, 1)), columns=['weights']) / 100
 
 #print("Train Labels shape: ", train_labels.shape)
 #print("Train Features shape: ", train_features.shape)

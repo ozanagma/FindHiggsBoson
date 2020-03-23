@@ -23,6 +23,8 @@ def FeatureImportance(infile):
     featurelist.append('EventId')
     for i, j in best_features.iteritems():
         featurelist.append(i)
+    featurelist.append('Weight')
+    featurelist.append('Label')
 
     outfile = (infile.split('/'))[0]
     outfile = outfile + '/' + (infile.split('/'))[1].split('.')[0]
@@ -56,6 +58,10 @@ def UnivariateSelection(infile):
     featurelist.append('EventId')
     for i in range(bestcount):
         featurelist.append(specs.iat[i, 0])
+    featurelist.append('Weight')
+    featurelist.append('Label')
+    
+    print(featurelist)
 
     outfile = (infile.split('/'))[0]
     outfile = outfile + '/' + (infile.split('/'))[1].split('.')[0]
@@ -63,7 +69,7 @@ def UnivariateSelection(infile):
     print(outfile)
 
     new_data = data[featurelist]
-    with open( filename, "wb+"):
+    with open( outfile, "wb+"):
         new_data.to_csv( outfile, index = False)
         
     return outfile
