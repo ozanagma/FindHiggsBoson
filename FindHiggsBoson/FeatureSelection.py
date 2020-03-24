@@ -6,14 +6,18 @@ from sklearn.feature_selection import SelectKBest, f_classif
 
 def FeatureImportance(X, y, best_count):
     model = ExtraTreesClassifier()
-    model.fit(X,y)
+    y=y.astype('int')
+    model.fit(X,y.values.ravel())
     feat_importances = pd.Series(model.feature_importances_, index=X.columns)
 
-    best_features = feat_importances.nlargest(bestcount)
+    best_features = feat_importances.nlargest(best_count)
 
     featurelist = []
     for i, j in best_features.iteritems():
         featurelist.append(i)
+
+    print()
+    print("\n".join(featurelist))
 
     features = X[featurelist]
     
@@ -33,7 +37,8 @@ def UnivariateSelection(X, y, bestcount):
     for i in range(bestcount):
         featurelist.append(specs.iat[i, 0])
 
-    print("\n",featurelist)
+    print()
+    print("\n".join(featurelist))
 
     features = X[featurelist]
         
