@@ -1,9 +1,5 @@
-import sys
-import re
-import time
 import pandas as pd
 import numpy as np
-
 
 from DataHandler import *
 from GradientDescent import *
@@ -13,7 +9,6 @@ from FeatureSelection import *
 
 
 infile = "data/data.csv"
-#infile = sys.argv[1]
 features, labels = LoadCSVData(infile)
 feature_count = features.shape[1]
 features = ReplaceNanMean(features)
@@ -53,9 +48,9 @@ if choosen_optimization_algorithm == '1':
     dataset = np.append(test_features.to_numpy(), test_labels.to_numpy(), 1)
 
     network = InitializeNetwork(feature_count, int(feature_count/2))
-    Train(network, dataset , learning_rate, max_iters)
+    Train(network, dataset, learning_rate, max_iters)
     predictions = Predict(network, dataset)
-    print((predictions == test_labels.to_numpy()).mean())
+    print("Prediction Mean: ", (predictions == test_labels.to_numpy()).mean())
 
 elif choosen_optimization_algorithm == '2':
 

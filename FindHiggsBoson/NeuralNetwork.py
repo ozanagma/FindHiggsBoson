@@ -92,7 +92,3 @@ def Predict(network, data):
 	
 	return predictions
 
-
-def predict(network, row):
-	outputs = ForwardPropagate(network, row)
-	return outputs.index(max(outputs))
