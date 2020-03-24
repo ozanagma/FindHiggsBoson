@@ -43,15 +43,15 @@ def SplitData(data) :
     return train_data, validation_data, test_data
 
 
-def LoadCSVData(data_path, fstart, fend, lstart, lend):
+def LoadCSVData(data_path):
     """ Loads CSV data and splits it as a features and labels. Convert labels to binary data"""
     data        = pd.read_csv(data_path, delimiter=",", dtype = {"Label" : "str"}, index_col=0)
-    features    = data.iloc[:, fstart:fend]
-    labels      = data.iloc[:, lstart:lend]
+    features    = data.iloc[:, 0:30] #düzeltilmeli oagma
+    labels      = data.iloc[:, 31:32]
 
     pd.options.mode.chained_assignment = None  # default='warn'
     labels.Label.loc[labels.Label == 's'] = 1
     labels.Label.loc[labels.Label == 'b'] = 0
     print("Data is loaded.")
   
-    return labels, features
+    return features, labels

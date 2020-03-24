@@ -68,7 +68,7 @@ def InitProgressBar():
     
 
 def UpdateProgressBar(bar, value):
-    value = 100 if value > 100 else value
+    value = 100 if value >= 100 else value
     bar.update(value)
     if value == 100:
         bar.finish()

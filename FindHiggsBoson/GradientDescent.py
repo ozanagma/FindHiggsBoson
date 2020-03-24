@@ -2,25 +2,25 @@ import numpy as np
 import datetime
 from Plot import * 
 
-def calculate_mse(e):
+def CalculateMSE(e):
     """Calculate the mse for vector e."""
     return 1/2*np.mean(e**2)
 
-def compute_gradient(y, tx, w):
+def ComputeGradient(y, tx, w):
     """Compute the gradient."""
     err = y - tx.dot(w)
     grad = -tx.T.dot(err) / len(err)
     return grad, err
 
-def gradient_descent(y, tx, initial_w, max_iters, gamma):
+def GradientDescent(y, tx, initial_w, max_iters, gamma):
     # Define parameters to store w and loss
     bar = InitProgressBar()
     ws = [initial_w]
     losses = []
     w = initial_w
     for n_iter in range(max_iters):
-        grad, err = compute_gradient(y, tx, w)
-        loss = calculate_mse(err)
+        grad, err = ComputeGradient(y, tx, w)
+        loss = CalculateMSE(err)
         # gradient w by descent update
         w = w - gamma*grad
         # store w and loss
@@ -42,9 +42,9 @@ def PredictLabels(weights, data):
 
 def RunGradientDescent(y, tx, initial_w, max_iters, gamma):
     # Start gradient descent.
-    print("Gradient Descent Algorithm Started.")
+    print("Gradient Descent Algorithm Started...")
     start_time = datetime.datetime.now()
-    gradient_losses, gradient_ws = gradient_descent(y, tx, initial_w, max_iters, gamma)
+    gradient_losses, gradient_ws = GradientDescent(y, tx, initial_w, max_iters, gamma)
     end_time = datetime.datetime.now()
     print("Gradient Descent Algorith Finished.")
 
