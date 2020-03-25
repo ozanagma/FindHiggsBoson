@@ -15,7 +15,7 @@ def FeatureImportance(X, y, best_count):
     for i, j in best_features.iteritems():
         featurelist.append(i)
 
-    print()
+    print("\nFeatures Selected:")
     print("\n".join(featurelist))
 
     features = X[featurelist]
@@ -36,7 +36,7 @@ def UnivariateSelection(X, y, bestcount):
     for i in range(bestcount):
         featurelist.append(specs.iat[i, 0])
 
-    print()
+    print("\nFeatures Selected:")
     print("\n".join(featurelist))
 
     features = X[featurelist]

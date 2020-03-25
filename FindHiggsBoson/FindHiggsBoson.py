@@ -7,7 +7,6 @@ from NeuralNetwork import *
 from Plot import *
 from FeatureSelection import *
 
-
 infile = "data/data.csv"
 features, labels = LoadCSVData(infile)
 feature_count = features.shape[1]
@@ -19,7 +18,8 @@ features = NormalizeData(features)
 pca_is_used = input("\nDo you want to use PCA? [Yy/Nn]")
 
 if pca_is_used == 'Y' or  pca_is_used == 'y':
-    feature_count = 10
+    print("\nYour current feature count is {t}. How many feature do you want?".format(t= feature_count))
+    feature_count = int(input())
 
     print("\nWhich PCA algorithm do you want to use? [1/2]")
     print("1. Feature Importance")

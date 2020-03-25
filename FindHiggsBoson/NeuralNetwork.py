@@ -7,9 +7,9 @@ import numpy as np
 def InitializeNetwork(n_inputs, n_hidden):
 	network = list()
 	seed(1)
-	hidden_layer = [{'weights':[((random() -0.5) * 4) for i in range(n_inputs + 1)]} for i in range(n_hidden)]
+	hidden_layer = [{'weights':[random() for i in range(n_inputs + 1)]} for i in range(n_hidden)]
 	network.append(hidden_layer)
-	output_layer = [{'weights':[((random() -0.5) * 4) for i in range(n_hidden + 1)]} for i in range(2)]
+	output_layer = [{'weights':[random() for i in range(n_hidden + 1)]} for i in range(2)]
 	network.append(output_layer)
 
 	return network
@@ -54,7 +54,7 @@ def BackwardPropagate(network, expected):
 			for j in range(len(layer)):
 				neuron = layer[j]
 				errors.append(expected[j] - neuron['output'])
-		for j in range(len(layer)):
+		for j in range(len(layer	)):
 			neuron = layer[j]
 			neuron['delta'] = errors[j] * TakeDerivative(neuron['output'])
 
@@ -74,21 +74,25 @@ def Train(network, data, l_rate, n_epoch):
 	
 	for epoch in range(n_epoch):
 		sum_error = 0	
-		for row in data:
-			output = ForwardPropagate(network, row)
+		for sample in data:
+			output = ForwardPropagate(network, sample)
 			expected = [0 for i in range(2)]
-			expected[row[-1]] = 1
+			expected[sample[-1]] = 1
 			sum_error += sum([(expected[i]-output[i])**2 for i in range(len(expected))])
 			BackwardPropagate(network, expected)
-			UpdateWeights(network, row, l_rate)
-		print('>epoch=%d, error=%.3f' % (epoch, sum_error / len(data) ))
+			UpdateWeights(network, sample, l_rate)
+		print('>Epoch=%d, Error=%.3f' % (epoch + 1, sum_error / len(data) ))
 
 
 def Predict(network, data):
 	predictions = list()
-	for input in data:
-		output = ForwardPropagate(network, input)
+	for sample in data:
+		output = ForwardPropagate(network, sample)
 		predictions.append(output.index(max(output)))
 	
 	return predictions
 
+
+def predict(network, row):
+	outputs = ForwardPropagate(network, row)
+	return outputs.index(max(outputs))
