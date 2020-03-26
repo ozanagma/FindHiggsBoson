@@ -11,8 +11,8 @@ infile = "data/data.csv"
 features, labels = LoadCSVData(infile)
 feature_count = features.shape[1]
 features = ReplaceNanMean(features)
-features = LogTransform(features)
 #features = StandardizeData(features)
+#features = LogTransform(features)
 features = NormalizeData(features)
 
 pca_is_used = input("\nDo you want to use PCA? [Yy/Nn]")
@@ -45,12 +45,27 @@ max_iters = int(input("\nEnter iteration count: "))
 learning_rate = float(input("Enter learning rate: ")) 
 
 if choosen_optimization_algorithm == '1':
-    dataset = np.append(test_features.to_numpy(), test_labels.to_numpy(), 1)
-
-    network = InitializeNetwork(feature_count, int(feature_count/2))
-    Train(network, dataset, learning_rate, max_iters)
-    predictions = Predict(network, dataset)
-    print("Prediction Mean: ", (predictions == test_labels.to_numpy()).mean())
+    dataset = np.append(train_features.to_numpy(), train_labels.to_numpy(), 1)
+    seed(1)
+   # dataset = [[0.2550537003,0],
+#	[0.2362125076,0],
+#	[0.2400293529,0],
+#	[0.5850220317,0],
+#	[0.2005305973,0],
+#	[0.5759262235,1],
+#	[0.5088626775,1],
+#	[0.577106367,1],
+#	[0.5242068655,1],
+#	[0.5508563011,1]]
+    network = InitializeNetwork(feature_count, 100, 20)
+    Train(network, dataset[0:10], learning_rate, max_iters)
+    predictions = list()
+    sum = 0
+    for i in range(10):
+        predictions.append(predict(network, dataset[i]))
+        sum += (predictions == dataset[i][1])
+    print(sum)
+    print("Prediction Mean: ", (predictions == dataset[-1]).mean())
 
 elif choosen_optimization_algorithm == '2':
 
