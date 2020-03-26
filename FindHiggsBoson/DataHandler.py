@@ -13,6 +13,13 @@ def NormalizeData(data):
 
     return data
 
+def ReplaceDataTypesAsFloat(data):
+    for ith_attribute in data.columns.values:
+        if data[ith_attribute].dtypes != 'float64':
+            data[ith_attribute] = data[ith_attribute].astype('float64')
+
+    return data
+
 def RemoveMostlyNanColumns(data, percentage, verbose = True):
     attributes_to_remove = []
     print("Column removing started...")

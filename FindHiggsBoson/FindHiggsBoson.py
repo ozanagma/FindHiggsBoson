@@ -11,8 +11,8 @@ infile = "data/data.csv"
 features, labels = LoadCSVData(infile)
 features = RemoveMostlyNanColumns(features, 30)
 features = ReplaceNanMean(features)
-#labels.info()
-features['PRI_jet_num'] = features['PRI_jet_num'].astype('float64')
+features = ReplaceDataTypesAsFloat(features)
+
 features = NormalizeData(features)
 #features = StandardizeData(features)
 
@@ -74,3 +74,7 @@ elif choosen_optimization_algorithm == '2':
 
     predicted_labels_test = PredictLabels(weights[-1], test_features)
     print("Prediction Mean: ", (predicted_labels_test == test_labels.to_numpy()).mean())
+
+else:
+    print("Not a valid input.")
+    sys.exit()
