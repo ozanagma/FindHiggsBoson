@@ -11,8 +11,6 @@ def InitializeNetwork(n_inputs, n_hidden_1, n_hidden_2):
 	network.append(hidden_layer_1)
 	hidden_layer_2	= [{'weights':[random() for i in range(n_hidden_1 + 1)]} for i in range(n_hidden_2)]
 	network.append(hidden_layer_2)
-	#hidden_layer_3	= [{'weights':[random() for i in range(n_hidden_1 + 1)]} for i in range(n_hidden_3)]
-	#network.append(hidden_layer_3)
 	output_layer	= [{'weights':[random() for i in range(n_hidden_2 + 1)]} for i in range(2)]
 	network.append(output_layer)
 
@@ -101,7 +99,7 @@ def Train(network, data, l_rate, n_epoch):
 			output = ForwardPropagate(network, sample)
 			expected = [0 for i in range(2)]
 			expected[sample[-1]] = 1
-			sum_error += sum([(sample[-1]-output[sample[-1]])**2]) / len(data)
+			sum_error += sum([(expected[i]-output[i])**2 for i in range(len(expected))]) / len(data)
 			BackwardPropagate(network, expected)
 			UpdateWeights(network, sample, l_rate)
 		print('>Epoch=%d, Error=%.3f' % (epoch + 1, sum_error))

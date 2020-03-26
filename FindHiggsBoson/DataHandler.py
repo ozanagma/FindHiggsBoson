@@ -13,6 +13,24 @@ def NormalizeData(data):
 
     return data
 
+def RemoveMostlyNanColumns(data, percentage, verbose = True):
+    attributes_to_remove = []
+    print("Column removing started...")
+    for ith_attribute in data.columns.values:
+        current_attribute = data[ith_attribute]
+        
+        count_nan = sum(k == -999 for k in current_attribute)
+        nan_attribute_percentage = count_nan * 100 / len(current_attribute)
+          
+        if nan_attribute_percentage > percentage:
+            if verbose:
+                print(ith_attribute, ' ==> ',
+                      'NaN: ' + str(nan_attribute_percentage) + '%,')
+            attributes_to_remove.append(ith_attribute)
+    print("Above Columns Removed:")
+    data = data.drop(attributes_to_remove, axis=1)
+
+
 def ReplaceNanMean(data):
     """Replace -999 values with NaN then replace NaN with column mean"""
     data = data.mask(np.isclose(data.values, -999.00))
@@ -48,10 +66,12 @@ def LoadCSVData(data_path):
     data        = pd.read_csv(data_path, delimiter=",", dtype = {"Label" : "str"}, index_col=0)
     features    = data.iloc[:, 0:30] #düzeltilmeli oagma
     labels      = data.iloc[:, 31:32]
+    print("Data is loaded.")
 
     pd.options.mode.chained_assignment = None  # default='warn'
-    labels.Label.loc[labels.Label == 's'] = 1
-    labels.Label.loc[labels.Label == 'b'] = 0
-    print("Data is loaded.")
+    labels.Label[labels.Label == 's'] = 0
+    labels.Label[labels.Label == 'b'] = 1
+    labels = labels.astype('float64')
+    print("Labels converted to binary.")
   
     return features, labels
