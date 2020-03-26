@@ -9,17 +9,16 @@ from FeatureSelection import *
 
 infile = "data/data.csv"
 features, labels = LoadCSVData(infile)
-feature_count = features.shape[1]
-RemoveMostlyNanColumns(features, 30)
+features = RemoveMostlyNanColumns(features, 30)
 features = ReplaceNanMean(features)
 #labels.info()
 features['PRI_jet_num'] = features['PRI_jet_num'].astype('float64')
-
-#features = StandardizeData(features)
-features = LogTransform(features)
 features = NormalizeData(features)
+#features = StandardizeData(features)
 
-pca_is_used = input("\nDo you want to use PCA? [Yy/Nn]")
+
+feature_count = features.shape[1]
+pca_is_used = input("\nDo you want to use PCA? [yY/nN]")
 
 if pca_is_used == 'Y' or  pca_is_used == 'y':
     print("\nYour current feature count is {t}. How many feature do you want?".format(t= feature_count))
@@ -66,7 +65,7 @@ if choosen_optimization_algorithm == '1':
 
 elif choosen_optimization_algorithm == '2':
 
-    initial_w = pd.DataFrame(np.random.randint(0, 100, size=(feature_count, 1)), columns=['weights']) / 100
+    initial_w = pd.DataFrame(np.random.randint(0, 1, size=(feature_count, 1)), columns=['weights']) 
 
     weights, losses = RunGradientDescent(train_labels.to_numpy(), train_features.to_numpy(), initial_w.to_numpy(), max_iters, learning_rate)
 

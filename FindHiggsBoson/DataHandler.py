@@ -27,8 +27,8 @@ def RemoveMostlyNanColumns(data, percentage, verbose = True):
                 print(ith_attribute, ' ==> ',
                       'NaN: ' + str(nan_attribute_percentage) + '%,')
             attributes_to_remove.append(ith_attribute)
-    print("Above Columns Removed:")
-    data = data.drop(attributes_to_remove, axis=1)
+    print("Above Columns Removed.")
+    return data.drop(attributes_to_remove, axis=1)
 
 
 def ReplaceNanMean(data):

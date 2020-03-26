@@ -98,7 +98,7 @@ def Train(network, data, l_rate, n_epoch):
 		for sample in data:
 			output = ForwardPropagate(network, sample)
 			expected = [0 for i in range(2)]
-			expected[sample[-1]] = 1
+			expected[int(sample[-1])] = 1
 			sum_error += sum([(expected[i]-output[i])**2 for i in range(len(expected))]) / len(data)
 			BackwardPropagate(network, expected)
 			UpdateWeights(network, sample, l_rate)
