@@ -18,7 +18,7 @@ features = NormalizeData(features)
 
 
 feature_count = features.shape[1]
-pca_is_used = input("\nDo you want to use PCA? [yY/nN]")
+pca_is_used = input("\nDo you want to apply PCA? [yY/nN]")
 
 if pca_is_used == 'Y' or  pca_is_used == 'y':
     print("\nYour current feature count is {t}. How many feature do you want?".format(t= feature_count))
@@ -30,7 +30,8 @@ if pca_is_used == 'Y' or  pca_is_used == 'y':
     choosen_pca_algorithm = input()
 
     if choosen_pca_algorithm == '1':
-        features = FeatureImportance(features, labels, feature_count)
+        features , feature_importances = FeatureImportance(features, labels, feature_count)
+        PlotFeatureImportances(feature_importances, feature_count)
     elif choosen_pca_algorithm == '2':
         features = UnivariateSelection(features, labels, feature_count)
 

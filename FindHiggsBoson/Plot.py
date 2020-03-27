@@ -59,6 +59,10 @@ def PlotBoxWhisker(data) :
     plt.savefig( 'Figures/BoxWhisker_' + timestamp + '.eps', format = 'eps')
     plt.show()
 
+def PlotFeatureImportances(feat_importances, feature_count) :
+    feat_importances.nlargest(feature_count).plot(kind='barh')
+    plt.show()
+
 
 def InitProgressBar():
     bar = progressbar.ProgressBar(maxval=100, \

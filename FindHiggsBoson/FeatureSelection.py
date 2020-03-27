@@ -20,7 +20,7 @@ def FeatureImportance(X, y, best_count):
 
     features = X[featurelist]
     
-    return features 
+    return features , feat_importances
     
 def UnivariateSelection(X, y, bestcount):
     bestfeatures = SelectKBest(score_func=f_classif, k=bestcount)

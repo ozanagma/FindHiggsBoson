@@ -22,7 +22,7 @@ def ReplaceDataTypesAsFloat(data):
 
 def RemoveMostlyNanColumns(data, percentage, verbose = True):
     attributes_to_remove = []
-    print("Column removing started...")
+    print("Mostly NaN Columns will be removed...")
     for ith_attribute in data.columns.values:
         current_attribute = data[ith_attribute]
         
