@@ -13,8 +13,9 @@ features = RemoveMostlyNanColumns(features, 30)
 features = ReplaceNanMean(features)
 features = ReplaceDataTypesAsFloat(features)
 
-features = NormalizeData(features)
-#features = StandardizeData(features)
+#features = LogTransform(features)
+#features = NormalizeData(features)
+features = StandardizeData(features)
 
 
 feature_count = features.shape[1]
@@ -30,14 +31,13 @@ if pca_is_used == 'Y' or  pca_is_used == 'y':
     choosen_pca_algorithm = input()
 
     if choosen_pca_algorithm == '1':
-        features , feature_importances = FeatureImportance(features, labels, feature_count)
-        PlotFeatureImportances(feature_importances, feature_count)
+        features , most_effective_features = FeatureImportance(features, labels, feature_count)
     elif choosen_pca_algorithm == '2':
-        features = UnivariateSelection(features, labels, feature_count)
+        features, most_effective_features = UnivariateSelection(features, labels, feature_count)
 
                                    
-train_features, validation_features, test_features  = SplitData(features)
-train_labels,   validation_labels,   test_labels    = SplitData(labels)
+train_features, test_features  = SplitData(features)
+train_labels,   test_labels    = SplitData(labels)
 
 print("\nWhich optimization algorithm do you want to use? [1/2]")
 print("1. Neural Network")
@@ -67,7 +67,7 @@ if choosen_optimization_algorithm == '1':
 elif choosen_optimization_algorithm == '2':
 
     initial_w = pd.DataFrame(np.random.randint(0, 1, size=(feature_count, 1)), columns=['weights']) 
-
+    #10000 0.01
     weights, losses = RunGradientDescent(train_labels.to_numpy(), train_features.to_numpy(), initial_w.to_numpy(), max_iters, learning_rate)
 
     plt.plot(losses)

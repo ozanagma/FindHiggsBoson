@@ -15,12 +15,12 @@ def FeatureImportance(X, y, best_count):
     for i, j in best_features.iteritems():
         featurelist.append(i)
 
-    print("\nFeatures Selected:")
-    print("\n".join(featurelist))
-
+    print("\nSelected Features and Scores:")
+    print(best_features)
+   
     features = X[featurelist]
     
-    return features , feat_importances
+    return features , best_features
     
 def UnivariateSelection(X, y, bestcount):
     bestfeatures = SelectKBest(score_func=f_classif, k=bestcount)
@@ -36,10 +36,9 @@ def UnivariateSelection(X, y, bestcount):
     for i in range(bestcount):
         featurelist.append(specs.iat[i, 0])
 
-    print("\nFeatures Selected:")
-    print("\n".join(featurelist))
+    print(featureScores.nlargest(bestcount,'Score'))
 
     features = X[featurelist]
         
-    return features
+    return features, bestfeatures
     

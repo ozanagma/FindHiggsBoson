@@ -62,10 +62,9 @@ def LogTransform(data):
 def SplitData(data) :
     """Split data into trai, validation and test"""
     train_data      = data.iloc[      :200000, :]
-    validation_data = data.iloc[200000:225000, :]
-    test_data       = data.iloc[225000:250000, :]
+    test_data       = data.iloc[200000:250000, :]
 
-    return train_data, validation_data, test_data
+    return train_data, test_data
 
 
 def LoadCSVData(data_path):

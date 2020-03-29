@@ -4,6 +4,7 @@ import time
 import seaborn as sns
 import matplotlib.pyplot as plt
 import pandas as pd
+import numpy as np
 import progressbar
 from time import sleep
 
@@ -57,10 +58,6 @@ def PlotBoxWhisker(data) :
     data.iloc[:,27:30].plot(kind='box', subplots=True, layout=(3,3))
     timestamp = time.strftime("%Y%m%d-%H%M%S")
     plt.savefig( 'Figures/BoxWhisker_' + timestamp + '.eps', format = 'eps')
-    plt.show()
-
-def PlotFeatureImportances(feat_importances, feature_count) :
-    feat_importances.nlargest(feature_count).plot(kind='barh')
     plt.show()
 
 
