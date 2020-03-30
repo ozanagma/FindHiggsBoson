@@ -92,28 +92,30 @@ def UpdateWeights(network, row, l_rate):
 			neuron['weights'][-1] += l_rate * neuron['delta']
 
 def Train(network, data, l_rate, n_epoch):
-	
+	error = list()
+	i = 0
 	for epoch in range(n_epoch):
 		sum_error = 0	
 		for sample in data:
 			output = ForwardPropagate(network, sample)
 			expected = [0 for i in range(2)]
 			expected[int(sample[-1])] = 1
-			sum_error += sum([(expected[i]-output[i])**2 for i in range(len(expected))]) / len(data)
+			sum_error += float(sum([(expected[i]-output[i])**2 for i in range(len(expected))]) / len(data))
 			BackwardPropagate(network, expected)
 			UpdateWeights(network, sample, l_rate)
-		print('>Epoch=%d, Error=%.3f' % (epoch + 1, sum_error))
+		error.append(sum_error)
+		i+=1
+		if i >= 20 and error[i - 20] - error[i - 1] < 0.001:
+			l_rate /= 2
+		print('>Epoch=%d, >Learning Rate=%.3f Error=%.3f' % (epoch + 1, l_rate, sum_error))
+
+	return error
 
 
 def Predict(network, data):
-	predictions = list()
-	for sample in data:
-		output = ForwardPropagate(network, sample)
-		predictions.append(output.index(max(output)))
-	
-	return predictions
-
-
-def predict(network, row):
-	outputs = ForwardPropagate(network, row)
-	return outputs.index(max(outputs))
+	sum = 0
+	for i in range(len(data)):
+		predictions = ForwardPropagate(network, data[i])
+		prediction = predictions.index(max(predictions))
+		sum += (prediction == data[i][-1])
+	print("Prediction Mean: ", sum / len(data))

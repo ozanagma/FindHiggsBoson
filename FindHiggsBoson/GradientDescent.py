@@ -26,14 +26,13 @@ def GradientDescent(y, tx, initial_w, max_iters, gamma):
 
     return losses, ws
 
-def PredictLabels(weights, data):
+def PredictLabels(weights, data, labels):
     """Generates class predictions given weights, and a test data matrix"""
     y_pred = data.values.dot(weights)
     y_pred[np.where(y_pred <= 0.5)] = 0
     y_pred[np.where(y_pred > 0.5)] = 1
     
-    return y_pred
-
+    print("Prediction Mean: ", (y_pred == labels.to_numpy()).mean())
 
 def RunGradientDescent(y, tx, initial_w, max_iters, gamma):
     print("Gradient Descent Algorithm Started...")

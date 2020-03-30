@@ -13,9 +13,8 @@ features = RemoveMostlyNanColumns(features, 30)
 features = ReplaceNanMean(features)
 features = ReplaceDataTypesAsFloat(features)
 
-#features = LogTransform(features)
-#features = NormalizeData(features)
-features = StandardizeData(features)
+features = LogTransform(features)
+features = NormalizeData(features)
 
 
 feature_count = features.shape[1]
@@ -39,6 +38,7 @@ if pca_is_used == 'Y' or  pca_is_used == 'y':
 train_features, test_features  = SplitData(features)
 train_labels,   test_labels    = SplitData(labels)
 
+
 print("\nWhich optimization algorithm do you want to use? [1/2]")
 print("1. Neural Network")
 print("2. Gradient Descent")
@@ -51,31 +51,28 @@ learning_rate = float(input("Enter learning rate: "))
 if choosen_optimization_algorithm == '1':
     train_dataset = np.append(train_features.to_numpy(), train_labels.to_numpy(), 1)
     test_dataset = np.append(test_features.to_numpy(), test_labels.to_numpy(), 1)
-    sample_size = 100
     seed(1)
     network = InitializeNetwork(feature_count, int(feature_count * 3), int(feature_count * 3))
-    Train(network, train_dataset[0:sample_size], learning_rate, max_iters)
-    sum = 0
-    predictions = list()
-    for i in range(len(test_dataset)):
-        prediction = predict(network, test_dataset[i])
-        sum += (prediction == test_dataset[i][-1])
-        predictions.append(prediction)
-    print(sum)
-    print("Prediction Mean: ", sum / len(test_dataset))
+    losses = Train(network, train_dataset[0:1000], learning_rate, max_iters)
+
+    plt.plot(losses)
+    plt.show()
+
+    Predict(network, test_dataset)
 
 elif choosen_optimization_algorithm == '2':
 
     initial_w = pd.DataFrame(np.random.randint(0, 1, size=(feature_count, 1)), columns=['weights']) 
-    #10000 0.01
+    #10000 0.01 10->feature
     weights, losses = RunGradientDescent(train_labels.to_numpy(), train_features.to_numpy(), initial_w.to_numpy(), max_iters, learning_rate)
 
     plt.plot(losses)
     plt.show()
 
-    predicted_labels_test = PredictLabels(weights[-1], test_features)
-    print("Prediction Mean: ", (predicted_labels_test == test_labels.to_numpy()).mean())
+    PredictLabels(weights[-1], test_features, test_labels)
 
 else:
     print("Not a valid input.")
     sys.exit()
+
+
